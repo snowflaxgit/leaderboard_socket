@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <title>LeaderBoard</title>
+        <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+        <link href="/stylesheets/bootstrap.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="/javascripts/jquery-1.9.1.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
+        <script type="text/javascript" src="/javascripts/script.js"></script>
+
+        <script type="text/javascript">
+        	$(document).ready(function(){
+
+        		$('img#vote').click(function(){
+        			console.log('sdgchsvc');
+        		});
+        	});
+        </script>
+    </head>
+
+<body>
+	<div class="container" >
+		<div class="row pagination-centered">
+			<div class="header">
+				<h2 >LeaderBoard </h2>
+			</div>
+				<br/>
+			<div class="users">
+				<table class="table" id="table">
+				</table>
+			</div><br>
+			<div id="addnewform" class="row pagination-centered" style="display:none; text-align:left; ">
+				Name: <input type="text" id="name"><br>
+				Score:<input type="text" id="score"><br>
+				<button id="addnewbtn"> Add</button>
+			</div>
+			<div id="addnew" class="row pagination-right">
+				<img height="32" width="32" src="images/addnew.png">
+			</div>
+		</div>
+	</div>
+</body>
+</html>
