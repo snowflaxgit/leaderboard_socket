@@ -101,6 +101,7 @@ $(document).ready(function() {
 	$("#addnewbtn").click(function(){
 		var name = $('#name').val();
 		var score = $('#score').val();
+		var date = new Date()
 
 		if(!name.match(/^[a-zA-Z]*$/) ){
 			alert('Enter valid data');
@@ -111,7 +112,7 @@ $(document).ready(function() {
 			console.log(score);
 			return false;
 		} else{
-			socket.emit('addnew', {name: name, rate: parseInt(score)});
+			socket.emit('addnew', {name: name, rate: parseInt(score),date:date});
 			$("#addnewform").hide();
 		}
 

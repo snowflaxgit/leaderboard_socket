@@ -26,7 +26,7 @@ db.open(function(err, db) {
                 populateDB();
             }
 			else{
-				//populateDB();
+				populateDB();
 				console.log("The 'user' collection exists.. "+collection);
 
 				collection.find().toArray(function(err, items) {
@@ -44,7 +44,7 @@ db.open(function(err, db) {
 });
 
 exports.list = function(req, res){
-	console.log("call List....");
+
 	db.collection('users', function(err, collection) {
 		collection.find({}).sort({rate: -1}).limit(10).toArray(function(err, items) {
 		res.header("Access-Control-Allow-Origin", "*");
@@ -60,27 +60,33 @@ exports.list = function(req, res){
 // Populate database with sample data -- Only used once: the first time the application is started.
 // You'd typically not find this code in a real-life app, since the database would already exist.
 var populateDB = function() {
+	console.log("call List....");
 
     var user = [
     {
 		name: "Ada Lovelace",
-		rate: 0
+		rate: 0,
+		date:new Date()
 	},
     {
 		name: "Grace Hopper",
-		rate: 0
+		rate: 0,
+		date:new Date()
 	},
     {
 		name: "Marie Curie",
-		rate: 0
+		rate: 0,
+		date:new Date()
 	},
     {
 		name: "Claude Shannon",
-		rate: 0
+		rate: 0,
+		date:new Date()
 	},
     {
 		name: "Nikola Tesla",
-		rate: 0
+		rate: 0,
+		date:new Date()
 	}
 	];
 
