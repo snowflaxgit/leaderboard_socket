@@ -23,6 +23,10 @@ socket.on('connect',function(){
 	//socket.emit('new',{data : ''});
 })
 
+function deleteSingle(id){
+	socket.emit('delete_single', id);
+}
+
 
 socket.on('update', function(data) {
 	var td = $('#'+data._id).find('td')[1];
@@ -73,6 +77,10 @@ socket.on('addnew_ack', function(d) {
 			'</tr>').insertAfter($(td).parent());
 	}
 */
+});
+
+socket.on('delete_single_ack', function(data){
+	$('#'+data).remove();
 });
 
 $(document).ready(function() {
