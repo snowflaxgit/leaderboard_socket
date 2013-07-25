@@ -28,7 +28,8 @@ function deleteSingle(id){
 }
 
 
-socket.on('update', function(data) {
+socket.on('update_score_ack', function(data) {
+	console.log(data);
 	var td = $('#'+data._id).find('td')[1];
 	$(td).html(data.rate);
 });

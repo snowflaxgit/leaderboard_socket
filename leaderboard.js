@@ -79,7 +79,7 @@ io.sockets.on('connection', function (socket) {
 					//console.log('' + result + ' document(s) updated');
 					 collection.find({'_id':new BSON.ObjectID(id)}).toArray(function(err, items) {
 						//socket.emit('update',items[0]);
-						io.sockets.emit('update',items[0]);
+						io.sockets.emit('update_score_ack',items[0]);
 						//console.log(socket.emit('update',{items : items}));
 					});
 				}
