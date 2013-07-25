@@ -59,12 +59,13 @@ io.sockets.on('connection', function (socket) {
 				if (err) {
 					console.log('error: '+err);
 				} else {
-					socket.emit('addnew_ack', result[0]);
-					socket.broadcast.emit('addnew_ack',result[0]);
+					//socket.emit('addnew_ack', result[0]);
+					io.sockets.emit('addnew_ack',result[0]);
 				}
 			});
 		});
 	});
+
 	socket.on('update_score', function (data) {
 		//console.log(data.user_id);
 		var id = data.user_id;
@@ -77,8 +78,8 @@ io.sockets.on('connection', function (socket) {
 				} else {
 					//console.log('' + result + ' document(s) updated');
 					 collection.find({'_id':new BSON.ObjectID(id)}).toArray(function(err, items) {
-						socket.emit('update',items[0]);
-						socket.broadcast.emit('update',items[0]);
+						//socket.emit('update',items[0]);
+						io.sockets.emit('update',items[0]);
 						//console.log(socket.emit('update',{items : items}));
 					});
 				}
@@ -93,8 +94,8 @@ io.sockets.on('connection', function (socket) {
 				if(err){
 					console.log('error: '+err);
 				} else{
-					socket.emit('delete_single_ack', id);
-					socket.broadcast.emit('delete_single_ack', id);
+					//socket.emit('delete_single_ack', id);
+					io.sockets.emit('delete_single_ack', id);
 				}
 			});
 		});
