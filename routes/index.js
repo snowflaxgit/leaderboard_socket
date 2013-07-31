@@ -46,7 +46,7 @@ db.open(function(err, db) {
 exports.list = function(req, res){
 
 	db.collection('users', function(err, collection) {
-		collection.find({}).sort({rate: -1}).limit(10).toArray(function(err, items) {
+		collection.find({}).sort({rate: -1}).toArray(function(err, items) {
 		res.header("Access-Control-Allow-Origin", "*");
 		res.header("Access-Control-Allow-Headers", "X-Requested-With");
 		res.json(items);
