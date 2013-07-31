@@ -66,40 +66,27 @@ var populateDB = function() {
     {
 		name: "Ada Lovelace",
 		rate: 0,
-<<<<<<< HEAD
-		date:new Date()
-=======
 		date: new Date(),
 		length:0
->>>>>>> Sorting
+
 	},
     {
 		name: "Grace Hopper",
 		rate: 0,
-<<<<<<< HEAD
-		date:new Date()
-=======
 		date: new Date(),
 		length:1
 
->>>>>>> Sorting
 	},
     {
 		name: "Marie Curie",
 		rate: 0,
-<<<<<<< HEAD
-		date:new Date()
-=======
 		date: new Date(),
 		length:2
->>>>>>> Sorting
+
 	},
     {
 		name: "Claude Shannon",
 		rate: 0,
-<<<<<<< HEAD
-		date:new Date()
-=======
 		date: new Date(),
 		length:3
 	},
@@ -108,14 +95,11 @@ var populateDB = function() {
 		rate: 0,
 		date: new Date(),
 		length:4
->>>>>>> Sorting
+
 	},
     {
 		name: "Nikola Tesla",
 		rate: 0,
-<<<<<<< HEAD
-		date:new Date()
-=======
 		date: new Date(),
 		length:5
 	},
@@ -154,7 +138,7 @@ var populateDB = function() {
 		rate: 0,
 		date: new Date(),
 		length:11
->>>>>>> Sorting
+
 	}
 	];
 

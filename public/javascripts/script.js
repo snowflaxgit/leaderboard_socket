@@ -112,11 +112,9 @@ $(document).ready(function() {
 			console.log(score);
 			return false;
 		} else{
-<<<<<<< HEAD
-			socket.emit('addnew', {name: name, rate: parseInt(score),date:date});
-=======
+
 			socket.emit('addnew', {name: name, rate: parseInt(score),date:new Date()});
->>>>>>> Sorting
+
 			$("#addnewform").hide();
 		}
 
