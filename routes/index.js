@@ -66,27 +66,95 @@ var populateDB = function() {
     {
 		name: "Ada Lovelace",
 		rate: 0,
+<<<<<<< HEAD
 		date:new Date()
+=======
+		date: new Date(),
+		length:0
+>>>>>>> Sorting
 	},
     {
 		name: "Grace Hopper",
 		rate: 0,
+<<<<<<< HEAD
 		date:new Date()
+=======
+		date: new Date(),
+		length:1
+
+>>>>>>> Sorting
 	},
     {
 		name: "Marie Curie",
 		rate: 0,
+<<<<<<< HEAD
 		date:new Date()
+=======
+		date: new Date(),
+		length:2
+>>>>>>> Sorting
 	},
     {
 		name: "Claude Shannon",
 		rate: 0,
+<<<<<<< HEAD
 		date:new Date()
+=======
+		date: new Date(),
+		length:3
 	},
     {
 		name: "Nikola Tesla",
 		rate: 0,
+		date: new Date(),
+		length:4
+>>>>>>> Sorting
+	},
+    {
+		name: "Nikola Tesla",
+		rate: 0,
+<<<<<<< HEAD
 		date:new Date()
+=======
+		date: new Date(),
+		length:5
+	},
+    {
+		name: "Hopper Carpet",
+		rate: 0,
+		date: new Date(),
+		length:6
+	},
+    {
+		name: "Jeams Tosson",
+		rate: 0,
+		date: new Date(),
+		length:7
+	},
+    {
+		name: "Fedr Jo",
+		rate: 0,
+		date: new Date(),
+		length:8
+	},
+    {
+		name: "Rydhem Mark",
+		rate: 0,
+		date: new Date(),
+		length:9
+	},
+    {
+		name: "Bread Peat ",
+		rate: 0,
+		date: new Date(),
+		length:10
+	},
+    {
+		name: "Leo Jons",
+		rate: 0,
+		date: new Date(),
+		length:11
+>>>>>>> Sorting
 	}
 	];
 
