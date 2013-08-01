@@ -46,7 +46,7 @@ db.open(function(err, db) {
 exports.list = function(req, res){
 
 	db.collection('users', function(err, collection) {
-		collection.find({}).sort({rate: -1}).limit(10).toArray(function(err, items) {
+		collection.find({}).sort({rate: -1}).toArray(function(err, items) {
 		res.header("Access-Control-Allow-Origin", "*");
 		res.header("Access-Control-Allow-Headers", "X-Requested-With");
 		res.json(items);
@@ -66,27 +66,79 @@ var populateDB = function() {
     {
 		name: "Ada Lovelace",
 		rate: 0,
-		date:new Date()
+		date: new Date(),
+		length:0
+
 	},
     {
 		name: "Grace Hopper",
 		rate: 0,
-		date:new Date()
+		date: new Date(),
+		length:1
+
 	},
     {
 		name: "Marie Curie",
 		rate: 0,
-		date:new Date()
+		date: new Date(),
+		length:2
+
 	},
     {
 		name: "Claude Shannon",
 		rate: 0,
-		date:new Date()
+		date: new Date(),
+		length:3
 	},
     {
 		name: "Nikola Tesla",
 		rate: 0,
-		date:new Date()
+		date: new Date(),
+		length:4
+
+	},
+    {
+		name: "Nikola Tesla",
+		rate: 0,
+		date: new Date(),
+		length:5
+	},
+    {
+		name: "Hopper Carpet",
+		rate: 0,
+		date: new Date(),
+		length:6
+	},
+    {
+		name: "Jeams Tosson",
+		rate: 0,
+		date: new Date(),
+		length:7
+	},
+    {
+		name: "Fedr Jo",
+		rate: 0,
+		date: new Date(),
+		length:8
+	},
+    {
+		name: "Rydhem Mark",
+		rate: 0,
+		date: new Date(),
+		length:9
+	},
+    {
+		name: "Bread Peat ",
+		rate: 0,
+		date: new Date(),
+		length:10
+	},
+    {
+		name: "Leo Jons",
+		rate: 0,
+		date: new Date(),
+		length:11
+
 	}
 	];
 
