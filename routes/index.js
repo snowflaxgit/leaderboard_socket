@@ -98,7 +98,7 @@ var populateDB = function() {
 
 	},
     {
-		name: "Nikola Tesla",
+		name: "Abc def",
 		rate: 0,
 		date: new Date(),
 		length:5

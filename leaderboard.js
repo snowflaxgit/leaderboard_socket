@@ -44,7 +44,7 @@ if ('development' == app.get('env')) {
 var io = require('socket.io').listen(server, { log: false });
 
 io.sockets.on('connection', function (socket) {
-
+	
 	var myReturn ;
 	db.collection('users', function(err, collection) {
 					collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
@@ -53,8 +53,8 @@ io.sockets.on('connection', function (socket) {
 
 					});
 				})
-
-
+	
+	
 	app.get('/',function(req, res){
 		console.log("call index....");
 		res.header("Access-Control-Allow-Origin", "*");
@@ -64,126 +64,93 @@ io.sockets.on('connection', function (socket) {
 
 	app.get('/list', routes.list);
 
-	socket.on('addnew', function(data) {
-		console.log("hello"+data.name);
-		console.log(data);
-		//data.length = 6;
-	//	console.log(data);
-		/*var myJs = JSON.parse(data);
-		console.log(myJs);*/
-		db.collection('users', function(err, collection) {
-			var resLength;
-			collection.find().count( function(err, res) {
-				if (err) {
-					console.log('error: '+err);
-				} else {
-					//socket.emit('addnew_ack', result[0]);
-					data.length = res;
-					collection.insert(data, {safe: true }, function(err, result) {
-						if (err) {
-							console.log('error: '+err);
-						} else {
-							//socket.emit('addnew_ack', result[0]);
-							io.sockets.emit('addnew_ack',result[0]);
-						}
-					});
-				}
-			});
+	/////********************** USER Define Socket *************************/////
 
-		});
-	});
-
-	socket.on('update_score', function (data) {
-		//console.log(data.user_id);
-		var id = data.user_id;
-
-		db.collection('users', function(err, collection) {
-			collection.update({'_id':new BSON.ObjectID(id)}, {$inc:{rate : 5}} , {safe:true}, function(err, result) {
-				if (err) {
-					//res.send({'error':'An error has occurred'});
-						console.log(err);
-				} else {
-					//console.log('' + result + ' document(s) updated');
-					 collection.find({'_id':new BSON.ObjectID(id)}).toArray(function(err, items) {
-						//socket.emit('update',items[0]);
-						io.sockets.emit('update_score_ack',items[0]);
-						//console.log(socket.emit('update',{items : items}));
-					});
-					 if(sortBy == "score"){
-						 collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
-							//socket.emit('update',items[0]);
-							io.sockets.emit('update_score_ack',items);
-							//console.log(socket.emit('update',{items : items}));
-						});
-					}
-					else if(sortBy == "update"){
-						 collection.find().limit(10).sort( { length: -1 } ).toArray(function(err, items) {
-							//socket.emit('update',items[0]);
-							io.sockets.emit('update_score_ack',items);
-							//console.log(socket.emit('update',{items : items}));
-						});
-					}
-				}
-			});
-		});
-	});
-
-	socket.on('delete_single', function(data){
-		var id = data;
-		db.collection('users', function(err, collection){
-			collection.remove({'_id':new BSON.ObjectID(id)}, function(err, result){
-				if(err){
-					console.log('error: '+err);
-				} else{
-					//socket.emit('delete_single_ack', id);
-					io.sockets.emit('delete_single_ack', id);
-				}
-			});
-		});
-	});
-
-
-	socket.on('new',function(data){
-		 sortBy =  data;
-
-		console.log("HERE is ........."+sortBy);
-			switch(sortBy){
+	socket.on('serverOn',function(data){
+		db.collection('users', function(err, collection) {	 
+			var socketOnSwitch = data.option;
+			switch(socketOnSwitch){
 				case "score":
-				console.log("score....Runs");
-				db.collection('users', function(err, collection) {
-					collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
-						//console.log(items);
-						//socket.broadcast.emit('update',{items : items});
-						socket.emit('update',{items : items});
-					});
-				});
+					sortBy =  data.option;
+					console.log("score....Runs");
+					
+						collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
+							server_code_emmit('update',{items : items});
+						});
 				break;
 
 				case "update":
-				console.log("update....Runs");
-				db.collection('users', function(err, collection) {
+					sortBy =  data.option;
+					console.log("update....Runs");
 					collection.find().limit(10).sort( { length: -1 } ).toArray(function(err, items) {
-						//console.log(items);
-						//socket.broadcast.emit('update',{items : items});
-						socket.emit('update',{items : items});
-					});
-				});
+							server_code_emmit('update',{items : items});
+						});
+					break;
+
+				case "update_score":
+				
+					var id = data.values.user_id;
+
+					collection.update({'_id':new BSON.ObjectID(id)}, {$inc:{rate : 5}} , {safe:true}, function(err, result) {
+							if (err) {
+								console.log(err);
+							} else {
+								collection.find({'_id':new BSON.ObjectID(id)}).toArray(function(err, items) {
+									server_code_emmit('clientOn',{option:"update_score_ack",values:items[0]});
+								});
+								 if(sortBy == "score"){
+									 collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
+										server_code_emmit('score_sort',items);
+									});
+								}
+								else if(sortBy == "update"){
+									 collection.find().limit(10).sort( { length: -1 } ).toArray(function(err, items) {
+										server_code_emmit('score_sort',items);
+									});
+								}
+							}
+						});
+				break;
+
+				case "addnew":
+					console.log("hello"+data.values.name);
+					console.log(data.values);
+					
+					var resLength;
+						collection.find().count( function(err, res) {
+							if (err) {
+								console.log('error: '+err);
+							} else {
+								data.values.length = res;
+								collection.insert(data.values, {safe: true }, function(err, result) {
+									if (err) {
+										console.log('error: '+err);
+									} else {
+										server_code_emmit('clientOn',{option:"addnew_ack",values:result[0]});
+									}
+								});
+							}
+						});
+						
 				break;
 
 				default:
-				console.log("default....Runs");
-				db.collection('users', function(err, collection) {
+					console.log("default....Runs");
 					collection.find().toArray(function(err, items) {
-						//console.log(items);
-						//socket.broadcast.emit('update',{items : items});
-						socket.emit('update',{items : items});
-					});
-				})
+							server_code_emmit('update',{items : items});
+						});
+				
+				break;
 
-
+					
 			}
+		});
 
-
+		
 	});
 
 });
+///////**************Socket emmit ****************///////
+function server_code_emmit(option,data){
+	io.sockets.emit(option,data);
+}
