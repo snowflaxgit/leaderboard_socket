@@ -50,8 +50,6 @@ io.sockets.on('connection', function (socket) {
 					collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
 						myReturn = JSON.stringify(items);
 						socket.send( myReturn );
-						console.log(myReturn);
-
 					});
 				collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
 					collection.find().limit(10).sort( { length: -1 } ).toArray(function(err, itemsUpdate) {
@@ -128,6 +126,11 @@ io.sockets.on('connection', function (socket) {
 										console.log('error: '+err);
 									} else {
 										server_code_emmit('clientOn',{option:"addnew_ack",values:result[0]});
+										collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
+									 	collection.find().limit(10).sort( { length: -1 } ).toArray(function(err, itemsUpdate) {
+										 	server_code_emmit('clientOn',{option:"scoreSort",values:{score:items,update:itemsUpdate}});
+										});
+									});
 									}
 								});
 							}
