@@ -50,7 +50,13 @@ io.sockets.on('connection', function (socket) {
 					collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
 						myReturn = JSON.stringify(items);
 						socket.send( myReturn );
+						console.log(myReturn);
 
+					});
+				collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
+					collection.find().limit(10).sort( { length: -1 } ).toArray(function(err, itemsUpdate) {
+						 	server_code_emmit('clientOn',{option:"scoreSort",values:{score:items,update:itemsUpdate}});
+						});
 					});
 				})
 	
@@ -70,7 +76,7 @@ io.sockets.on('connection', function (socket) {
 		db.collection('users', function(err, collection) {	 
 			var socketOnSwitch = data.option;
 			switch(socketOnSwitch){
-				case "score":
+				/*case "score":
 					sortBy =  data.option;
 					console.log("score....Runs");
 					
@@ -86,7 +92,7 @@ io.sockets.on('connection', function (socket) {
 							server_code_emmit('update',{items : items});
 						});
 					break;
-
+*/
 				case "update_score":
 				
 					var id = data.values.user_id;
@@ -99,23 +105,18 @@ io.sockets.on('connection', function (socket) {
 									server_code_emmit('clientOn',{option:"update_score_ack",values:items[0]});
 								});
 								 if(sortBy == "score"){
-									 collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
-										server_code_emmit('score_sort',items);
+								 	collection.find().limit(10).sort( { rate: -1 } ).toArray(function(err, items) {
+									 	collection.find().limit(10).sort( { length: -1 } ).toArray(function(err, itemsUpdate) {
+										 	server_code_emmit('clientOn',{option:"scoreSort",values:{score:items,update:itemsUpdate}});
+										});
 									});
 								}
-								else if(sortBy == "update"){
-									 collection.find().limit(10).sort( { length: -1 } ).toArray(function(err, items) {
-										server_code_emmit('score_sort',items);
-									});
-								}
+								
 							}
 						});
 				break;
 
 				case "addnew":
-					console.log("hello"+data.values.name);
-					console.log(data.values);
-					
 					var resLength;
 						collection.find().count( function(err, res) {
 							if (err) {
